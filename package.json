@@ -19,7 +19,7 @@
   "homepage": "https://github.com/Team-Croissant/URLATE-event-server#readme",
   "dependencies": {
     "@types/node": "^16.11.12",
-    "socket.io": "^4.4.0",
+    "socket.io": "^2.3.0",
     "tsc-watch": "^4.5.0",
     "typescript": "^4.5.2"
   }
