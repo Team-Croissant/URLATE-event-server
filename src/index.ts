@@ -10,8 +10,8 @@ io.on("connection", (socket) => {
     adminId = socket.id;
   });
 
-  socket.on("handshake", (id, socketId) => {
-    io.emit("handshake", id, socketId);
+  socket.on("handshake", (id) => {
+    io.emit("handshake", id, socket.id);
   });
 
   socket.on("connected", (socketId) => {
