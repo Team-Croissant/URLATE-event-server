@@ -18,6 +18,18 @@ io.on("connection", (socket) => {
     io.to(socketId).emit("connected");
   });
 
+  socket.on("initialize", (socketId) => {
+    io.to(socketId).emit("initialize");
+  });
+
+  socket.on("tutorial", (socketId) => {
+    io.to(socketId).emit("tutorial");
+  });
+
+  socket.on("initialized", (name) => {
+    io.emit("initialized", name, socket.id);
+  });
+
   socket.on("disconnect", () => {
     console.log(`${socket.id} : User Disconnected.`);
     if (socket.id == adminId) {
@@ -25,9 +37,5 @@ io.on("connection", (socket) => {
     } else {
       io.emit("disconnected", socket.id);
     }
-  });
-
-  socket.on("initialize", (socketId) => {
-    io.to(socketId).emit("initialize");
   });
 });
