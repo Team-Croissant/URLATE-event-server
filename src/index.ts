@@ -10,8 +10,8 @@ io.on("connection", (socket) => {
     adminId = socket.id;
   });
 
-  socket.on("handshake", (id) => {
-    io.emit("handshake", id, socket.id);
+  socket.on("handshake", (id, screen) => {
+    io.emit("handshake", id, socket.id, screen);
   });
 
   socket.on("connected", (socketId) => {
@@ -22,12 +22,20 @@ io.on("connection", (socket) => {
     io.to(socketId).emit("initialize");
   });
 
+  socket.on("initialized", (name) => {
+    io.emit("initialized", name, socket.id);
+  });
+
   socket.on("tutorial", (socketId) => {
     io.to(socketId).emit("tutorial");
   });
 
-  socket.on("initialized", (name) => {
-    io.emit("initialized", name, socket.id);
+  socket.on("tutorial loaded", () => {
+    io.emit("tutorial loaded", socket.id);
+  });
+
+  socket.on("tutorial start", (socketId) => {
+    io.to(socketId).emit("tutorial start");
   });
 
   socket.on("disconnect", () => {
