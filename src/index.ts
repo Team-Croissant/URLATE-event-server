@@ -1,6 +1,7 @@
 const config = require(__dirname + "/../config/config.json");
 const io = require("socket.io")(config.project.port);
 let adminId = "";
+let displayId = "";
 
 io.on("connection", (socket) => {
   console.log(`${socket.id} : User Connected.`);
@@ -8,6 +9,10 @@ io.on("connection", (socket) => {
 
   socket.on("admin", () => {
     adminId = socket.id;
+  });
+
+  socket.on("display", () => {
+    displayId = socket.id;
   });
 
   socket.on("handshake", (id, screen) => {
@@ -27,7 +32,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("tutorial", (socketId) => {
-    io.to(socketId).emit("tutorial");
+    io.to(socketId == "Display" ? displayId : socketId).emit("tutorial");
   });
 
   socket.on("tutorial loaded", () => {
@@ -35,7 +40,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("tutorial start", (socketId) => {
-    io.to(socketId).emit("tutorial start");
+    io.to(socketId == "Display" ? displayId : socketId).emit("tutorial start");
   });
 
   socket.on("disconnect", () => {
