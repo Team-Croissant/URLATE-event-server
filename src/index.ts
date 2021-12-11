@@ -39,8 +39,16 @@ io.on("connection", (socket) => {
     io.emit("tutorial loaded", socket.id);
   });
 
-  socket.on("tutorial start", (socketId) => {
-    io.to(socketId == "Display" ? displayId : socketId).emit("tutorial start");
+  socket.on("ready", () => {
+    io.emit("ready", socket.id);
+  });
+
+  socket.on("tutorial start", (socketId, date) => {
+    io.to(socketId == "Display" ? displayId : socketId).emit("tutorial start", date);
+  });
+
+  socket.on("tutorial restart", (socketId) => {
+    io.to(socketId == "Display" ? displayId : socketId).emit("tutorial restart");
   });
 
   socket.on("disconnect", () => {
