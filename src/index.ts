@@ -51,6 +51,10 @@ io.on("connection", (socket) => {
     io.to(socketId == "Display" ? displayId : socketId).emit("tutorial restart");
   });
 
+  socket.on("update", (userId, mouseX, mouseY) => {
+    io.emit("update", userId, mouseX, mouseY);
+  });
+
   socket.on("disconnect", () => {
     console.log(`${socket.id} : User Disconnected.`);
     if (socket.id == adminId) {
