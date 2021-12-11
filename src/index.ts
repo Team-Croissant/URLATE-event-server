@@ -31,8 +31,8 @@ io.on("connection", (socket) => {
     io.emit("initialized", name, socket.id);
   });
 
-  socket.on("tutorial", (socketId) => {
-    io.to(socketId == "Display" ? displayId : socketId).emit("tutorial");
+  socket.on("tutorial", (socketId, users) => {
+    io.to(socketId == "Display" ? displayId : socketId).emit("tutorial", users);
   });
 
   socket.on("tutorial loaded", () => {
@@ -53,6 +53,10 @@ io.on("connection", (socket) => {
 
   socket.on("update", (userId, mouseX, mouseY) => {
     io.emit("update", userId, mouseX, mouseY);
+  });
+
+  socket.on("score", (userId, score) => {
+    io.emit("score", userId, score);
   });
 
   socket.on("disconnect", () => {
