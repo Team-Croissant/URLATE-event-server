@@ -59,6 +59,14 @@ io.on("connection", (socket) => {
     io.emit("score", userId, score);
   });
 
+  socket.on("judge", (userId, judge, x, y) => {
+    io.emit("judge", userId, judge, x, y);
+  });
+
+  socket.on("destroy", (userId, i) => {
+    io.emit("destroy", userId, i);
+  });
+
   socket.on("disconnect", () => {
     console.log(`${socket.id} : User Disconnected.`);
     if (socket.id == adminId) {
