@@ -67,6 +67,10 @@ io.on("connection", (socket) => {
     io.emit("destroy", userId, i);
   });
 
+  socket.on("damaged", (userId) => {
+    io.emit("damaged", userId);
+  });
+
   socket.on("disconnect", () => {
     console.log(`${socket.id} : User Disconnected.`);
     if (socket.id == adminId) {
