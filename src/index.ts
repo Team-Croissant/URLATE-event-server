@@ -79,6 +79,10 @@ io.on("connection", (socket) => {
     io.emit("result sync", date);
   });
 
+  socket.on("select music", (socketId) => {
+    io.to(socketId == "Display" ? displayId : socketId).emit("select music");
+  });
+
   socket.on("disconnect", () => {
     console.log(`${socket.id} : User Disconnected.`);
     if (socket.id == adminId) {
