@@ -71,6 +71,14 @@ io.on("connection", (socket) => {
     io.emit("damaged", userId);
   });
 
+  socket.on("game ended", (userId, score, rank, judge) => {
+    io.emit("game ended", userId, score, rank, judge);
+  });
+
+  socket.on("result sync", (date) => {
+    io.emit("result sync", date);
+  });
+
   socket.on("disconnect", () => {
     console.log(`${socket.id} : User Disconnected.`);
     if (socket.id == adminId) {
