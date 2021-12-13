@@ -95,8 +95,8 @@ io.on("connection", (socket) => {
     io.emit("select started", id);
   });
 
-  socket.on("selecting", (id, track, producer, file) => {
-    io.emit("selecting", id, track, producer, file);
+  socket.on("selecting", (id, track, producer, file, note, bullet, bpm, speed) => {
+    io.emit("selecting", id, track, producer, file, note, bullet, bpm, speed);
   });
 
   socket.on("selected", (id) => {
