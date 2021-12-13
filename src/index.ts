@@ -35,20 +35,20 @@ io.on("connection", (socket) => {
     io.to(socketId == "Display" ? displayId : socketId).emit("tutorial", users);
   });
 
-  socket.on("tutorial loaded", () => {
-    io.emit("tutorial loaded", socket.id);
+  socket.on("play loaded", () => {
+    io.emit("play loaded", socket.id);
   });
 
   socket.on("ready", () => {
     io.emit("ready", socket.id);
   });
 
-  socket.on("tutorial start", (socketId, date) => {
-    io.to(socketId == "Display" ? displayId : socketId).emit("tutorial start", date);
+  socket.on("play start", (socketId, date) => {
+    io.to(socketId == "Display" ? displayId : socketId).emit("play start", date);
   });
 
-  socket.on("tutorial restart", (socketId) => {
-    io.to(socketId == "Display" ? displayId : socketId).emit("tutorial restart");
+  socket.on("play restart", (socketId) => {
+    io.to(socketId == "Display" ? displayId : socketId).emit("play restart");
   });
 
   socket.on("update", (userId, mouseX, mouseY) => {
