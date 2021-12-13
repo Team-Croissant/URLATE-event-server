@@ -83,6 +83,26 @@ io.on("connection", (socket) => {
     io.to(socketId == "Display" ? displayId : socketId).emit("select music");
   });
 
+  socket.on("select loaded", (id) => {
+    io.emit("select loaded", id);
+  });
+
+  socket.on("select sync", (date, finDate) => {
+    io.emit("select sync", date, finDate);
+  });
+
+  socket.on("select started", (id) => {
+    io.emit("select started", id);
+  });
+
+  socket.on("selecting", (id, track, producer, file) => {
+    io.emit("selecting", id, track, producer, file);
+  });
+
+  socket.on("selected", (id) => {
+    io.emit("selected", id);
+  });
+
   socket.on("disconnect", () => {
     console.log(`${socket.id} : User Disconnected.`);
     if (socket.id == adminId) {
