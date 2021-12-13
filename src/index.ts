@@ -103,6 +103,18 @@ io.on("connection", (socket) => {
     io.emit("selected", id);
   });
 
+  socket.on("selected sync", (userNames, nickname, track, producer, file) => {
+    io.emit("selected sync", userNames, nickname, track, producer, file);
+  });
+
+  socket.on("select finish", (id) => {
+    io.emit("select finish", id);
+  });
+
+  socket.on("play", (socketId) => {
+    io.to(socketId == "Display" ? displayId : socketId).emit("play");
+  });
+
   socket.on("disconnect", () => {
     console.log(`${socket.id} : User Disconnected.`);
     if (socket.id == adminId) {
