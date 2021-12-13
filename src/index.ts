@@ -103,8 +103,8 @@ io.on("connection", (socket) => {
     io.emit("selected", id);
   });
 
-  socket.on("selected sync", (userNames, nickname, track, producer, file) => {
-    io.emit("selected sync", userNames, nickname, track, producer, file);
+  socket.on("selected sync", (userNames, nickname, track, producer, file, note, bullet, bpm, speed) => {
+    io.emit("selected sync", userNames, nickname, track, producer, file, note, bullet, bpm, speed);
   });
 
   socket.on("select finish", (id) => {
