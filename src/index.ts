@@ -115,6 +115,14 @@ io.on("connection", (socket) => {
     io.to(socketId == "Display" ? displayId : socketId).emit("play");
   });
 
+  socket.on("time get", () => {
+    io.emit("time get", socket.id);
+  });
+
+  socket.on("time", (socketId, time) => {
+    io.to(socketId).emit("time", time);
+  });
+
   socket.on("disconnect", () => {
     console.log(`${socket.id} : User Disconnected.`);
     if (socket.id == adminId) {
