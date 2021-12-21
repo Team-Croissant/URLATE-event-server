@@ -1,7 +1,6 @@
 const config = require(__dirname + "/../config/config.json");
 const io = require("socket.io")(config.project.port);
 let adminId = "";
-let displayId = "";
 
 io.on("connection", (socket) => {
   console.log(`${socket.id} : User Connected.`);
@@ -9,10 +8,6 @@ io.on("connection", (socket) => {
 
   socket.on("admin", () => {
     adminId = socket.id;
-  });
-
-  socket.on("display", () => {
-    displayId = socket.id;
   });
 
   socket.on("handshake", (id, screen) => {
@@ -32,7 +27,11 @@ io.on("connection", (socket) => {
   });
 
   socket.on("tutorial", (socketId, users) => {
-    io.to(socketId == "Display" ? displayId : socketId).emit("tutorial", users);
+    if (socketId == "Display") {
+      io.emit("tutorial display", users);
+    } else {
+      io.to(socketId).emit("tutorial", users);
+    }
   });
 
   socket.on("play loaded", () => {
@@ -44,11 +43,19 @@ io.on("connection", (socket) => {
   });
 
   socket.on("play start", (socketId, date) => {
-    io.to(socketId == "Display" ? displayId : socketId).emit("play start", date);
+    if (socketId == "Display") {
+      io.emit("play start display", date);
+    } else {
+      io.to(socketId).emit("play start", date);
+    }
   });
 
   socket.on("play restart", (socketId) => {
-    io.to(socketId == "Display" ? displayId : socketId).emit("play restart");
+    if (socketId == "Display") {
+      io.emit("play restart display");
+    } else {
+      io.to(socketId).emit("play restart");
+    }
   });
 
   socket.on("update", (userId, mouseX, mouseY) => {
@@ -80,7 +87,11 @@ io.on("connection", (socket) => {
   });
 
   socket.on("select music", (socketId) => {
-    io.to(socketId == "Display" ? displayId : socketId).emit("select music");
+    if (socketId == "Display") {
+      io.emit("select music display");
+    } else {
+      io.to(socketId).emit("select music");
+    }
   });
 
   socket.on("select loaded", (id) => {
@@ -112,7 +123,11 @@ io.on("connection", (socket) => {
   });
 
   socket.on("play", (socketId) => {
-    io.to(socketId == "Display" ? displayId : socketId).emit("play");
+    if (socketId == "Display") {
+      io.emit("play display");
+    } else {
+      io.to(socketId).emit("play");
+    }
   });
 
   socket.on("time get", () => {
