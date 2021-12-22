@@ -122,6 +122,10 @@ io.on("connection", (socket) => {
     io.emit("select finish", id);
   });
 
+  socket.on("difficulty select", (id, selection) => {
+    io.emit("difficulty select", id, selection);
+  });
+
   socket.on("play", (socketId) => {
     if (socketId == "Display") {
       io.emit("play display");
